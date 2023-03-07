@@ -1,0 +1,22 @@
+.button {
+    border: 1px solid var(--button-bg);
+    padding: 8px 16px;
+    color: var(--button-text);
+    font-size: var(--button-font-size);
+    border-radius: var(--button-radius);
+    height: var(--button-height);
+
+    &.default {
+        background: var(--button-bg);
+    }
+
+    &.important    {
+        background: var(--button-bg-important);
+        border-color: var(--button-bg-important)
+    }
+
+    &.danger {
+        background: var(--button-bg-danger);
+        border-color: var(--button-bg-danger);
+    }
+}
