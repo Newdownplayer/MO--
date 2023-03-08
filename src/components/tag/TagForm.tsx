@@ -1,6 +1,5 @@
 import { defineComponent, reactive } from "vue";
 import { Button } from "../../shared/Button";
-import { EmojiSelect } from "../../shared/EmojiSelect";
 import { Form, FormItem } from "../../shared/Form";
 import { Rules, validate } from "../../shared/validate";
 import s from './Tag.module.scss';
@@ -37,7 +36,7 @@ export const TagForm = defineComponent({
                     <p class={s.tips}>记账时长按标签即可进行编辑</p>
                 </FormItem>
                 <FormItem>
-                    <Button class={[s.button]}>确定</Button>
+                    <Button type="submit" class={[s.button]}>确定</Button>
                 </FormItem>
             </Form>
         )
