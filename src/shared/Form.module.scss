@@ -33,6 +33,21 @@
         }
     }
 
+    &.validationCodeInput {
+        flex-grow: 1;
+        width: 8em;
+    }
+
+    &.validationCodeButton {
+        margin-left: 8px;
+        width: 8em;
+    }
+
+    &.select {
+        border-radius: var(--input-radius);
+        padding: 0 8px;
+    }
+
     &_name {}
 
     &_value {
@@ -53,13 +68,4 @@
 
 .emojiList {
     padding: 0 8px;
-}
-
-.validationCodeInput {
-    flex-grow: 1;
-    width: 8em;
-}
-.validationCodeButton {
-    margin-left: 8px;
-    width: 8em;
 }

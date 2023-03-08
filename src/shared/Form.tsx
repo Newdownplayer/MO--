@@ -28,7 +28,7 @@ export const FormItem = defineComponent({
             type: [String, Number]
         },
         type: {
-            type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode'>,
+            type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode' | 'select'>,
         },
         error: {
             type: String
@@ -36,12 +36,19 @@ export const FormItem = defineComponent({
         placeholder: {
             type: String
         },
+        option: {
+            type: Array as PropType<{ value: string, text: string }[]>
+        }
     },
     emits: ['update:modelValue'],
     setup: (props, context) => {
         const refDateVisible = ref(false)
         const content = computed(() => {
             switch (props.type) {
+                case 'select':
+                    return <select class={[s.formItem, s.select]} value={props.modelValue} onChange={(e: any) => context.emit('update:modelValue', e.target.value)}>
+                        {props.option?.map(option => <option value={option.value}>{option.text}</option>)}
+                    </select>
                 case 'text':
                     return <input
                         value={props.modelValue} placeholder={props.placeholder} class={[s.formItem, s.input]}
