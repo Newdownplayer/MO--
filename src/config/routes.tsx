@@ -16,6 +16,7 @@ import { vantTest } from "../components/vantTest";
 import { TagPage } from "../views/TagPage";
 import { TagEdit } from "../components/tag/TagEdit";
 import { TagCreate } from "../components/tag/TagCreate";
+import { SignInPage } from "../views/SignInPage";
 
 export const routes: RouteRecordRaw[] = [
     { path: '/', redirect: '/welcome' },
@@ -45,5 +46,6 @@ export const routes: RouteRecordRaw[] = [
             { path: 'create', component: TagCreate },
         ]
     },
+    { path: '/sign_in', component: SignInPage },
     { path: '/test', component: vantTest }
 ]

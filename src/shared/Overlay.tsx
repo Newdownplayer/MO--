@@ -12,16 +12,15 @@ export const Overlay = defineComponent({
         const close = () => {
             props.onClose?.()
         }
-        const onClickSignIn = () => {
-            console.log("登录");
-
-        }
         return () => <>
             <div class={s.mask} onClick={close}></div>
             <div class={s.overlay}>
                 <section class={s.currentUser}>
-                    <h2 onClick={onClickSignIn}>未登录用户</h2>
-                    <div onClick={onClickSignIn}>点击登录</div>
+                    <RouterLink to="/sign_in">
+                        <h2>未登录用户</h2>
+                        <div>点击登录</div>
+                    </RouterLink>
+
                 </section>
                 <nav>
                     <ul class={s.table}>

@@ -50,6 +50,16 @@
         font-size: 12px;
     }
 }
-.emojiList{
+
+.emojiList {
     padding: 0 8px;
+}
+
+.validationCodeInput {
+    flex-grow: 1;
+    width: 8em;
+}
+.validationCodeButton {
+    margin-left: 8px;
+    width: 8em;
 }
