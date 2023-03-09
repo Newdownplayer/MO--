@@ -7,6 +7,7 @@ import { Icon } from "../shared/Icon";
 import { validate } from "../shared/validate";
 import s from './SignInPage.module.scss';
 import { http } from "../shared/Http";
+import { useBool } from "../hooks/useBool";
 export const SignInPage = defineComponent({
     setup: (props, context) => {
         const formData = reactive({
@@ -18,6 +19,7 @@ export const SignInPage = defineComponent({
             code: []
         })
         const refValkidationCode = ref<any>('')
+        const { ref: refDisabled, toggle, on, off } = useBool(false)
         const onSubmit = (e: Event) => {
             e.preventDefault();
             Object.assign(errors, {
@@ -37,12 +39,14 @@ export const SignInPage = defineComponent({
             }
             throw error
         }
-        const onClickSendValitionCode = async () => {
-            const response = await http.post('/validation_codes', { email: formData.email }).catch(onError)
-            //成功
-            console.log(response)
-            refValkidationCode.value.startCount()
-        }
+        // const onClickSendValitionCode = async () => {
+        //     on()
+        //     const response = await http.post('/validation_codes', { email: formData.email }).catch(onError).finally(off)
+        //     //成功
+        //     console.log(response)
+        //     refValkidationCode.value.startCount()
+        // }
+        const onClickSendValitionCode = () => { refValkidationCode.value.startCount() }
         return () => (
             <MainLayout>{{
                 title: () => '登录',
@@ -54,7 +58,7 @@ export const SignInPage = defineComponent({
                     </Center>
                     <Form onSubmit={onSubmit}>
                         <FormItem label="邮箱地址" type="text" placeholder="请输入邮箱地址" v-model={formData.email} error={errors.email?.[0]}></FormItem>
-                        <FormItem label="验证码" type="validationCode" countFrom={60} ref={refValkidationCode} placeholder="请输入验证码" v-model={formData.code} error={errors.code?.[0]}
+                        <FormItem label="验证码" disabled={refDisabled.value} type="validationCode" countFrom={60} ref={refValkidationCode} placeholder="请输入验证码" v-model={formData.code} error={errors.code?.[0]}
                             onClick={onClickSendValitionCode}
                         ></FormItem>
                         <FormItem style={{ paddingTop: '48px' }}>
