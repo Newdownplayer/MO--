@@ -8,6 +8,7 @@ import { hasError, validate } from "../shared/validate";
 import s from './SignInPage.module.scss';
 import { http } from "../shared/Http";
 import { useBool } from "../hooks/useBool";
+import { history } from '../shared/history';
 export const SignInPage = defineComponent({
     setup: (props, context) => {
         const formData = reactive({
@@ -33,7 +34,9 @@ export const SignInPage = defineComponent({
                 { key: 'code', type: 'pattern', regexp: /^\d{6}$/, message: '请输入正确的验证码' },
             ]))
             if (!hasError(errors)) {
-                const response = await http.post('/session', formData)
+                const response = await http.post<{ jwt: string }>('/session', formData)
+                localStorage.setItem('jwt', response.data.jwt)
+                history.push('/')
             }
         }
         const onError = (error: any) => {
