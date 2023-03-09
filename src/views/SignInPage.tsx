@@ -4,14 +4,14 @@ import { Button } from "../shared/Button";
 import { Center } from "../shared/Center";
 import { Form, FormItem } from "../shared/Form";
 import { Icon } from "../shared/Icon";
-import { validate } from "../shared/validate";
+import { hasError, validate } from "../shared/validate";
 import s from './SignInPage.module.scss';
 import { http } from "../shared/Http";
 import { useBool } from "../hooks/useBool";
 export const SignInPage = defineComponent({
     setup: (props, context) => {
         const formData = reactive({
-            email: '',
+            email: '1119312377@qq.com',
             code: ''
         })
         const errors = reactive({
@@ -20,7 +20,7 @@ export const SignInPage = defineComponent({
         })
         const refValkidationCode = ref<any>('')
         const { ref: refDisabled, toggle, on, off } = useBool(false)
-        const onSubmit = (e: Event) => {
+        const onSubmit = async (e: Event) => {
             e.preventDefault();
             Object.assign(errors, {
                 email: [],
@@ -32,6 +32,9 @@ export const SignInPage = defineComponent({
                 { key: 'code', type: 'required', message: '请输入验证码' },
                 { key: 'code', type: 'pattern', regexp: /^\d{6}$/, message: '请输入正确的验证码' },
             ]))
+            if (!hasError(errors)) {
+                const response = await http.post('/session', formData)
+            }
         }
         const onError = (error: any) => {
             if (error.response.status === 422) {

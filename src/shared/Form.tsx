@@ -67,16 +67,17 @@ export const FormItem = defineComponent({
                 }
             }, 1000)
         context.expose({ startCount })
+        const onInput = (e: any) => context.emit('update:modelValue', e.target.value)
         const content = computed(() => {
             switch (props.type) {
                 case 'select':
-                    return <select class={[s.formItem, s.select]} value={props.modelValue} onChange={(e: any) => context.emit('update:modelValue', e.target.value)}>
+                    return <select class={[s.formItem, s.select]} value={props.modelValue} onChange={onInput}>
                         {props.option?.map(option => <option value={option.value}>{option.text}</option>)}
                     </select>
                 case 'text':
                     return <input
                         value={props.modelValue} placeholder={props.placeholder} class={[s.formItem, s.input]}
-                        onInput={(e: any) => context.emit('update:modelValue', e.target.value)} />
+                        onInput={onInput} />
                 case 'emojiSelect':
                     return <EmojiSelect
                         modelValue={props.modelValue?.toString()} class={[s.form, s.emojiList, s.error]}
@@ -84,7 +85,8 @@ export const FormItem = defineComponent({
                 case 'validationCode':
                     return <>
                         <input
-                            value={props.modelValue} placeholder={props.placeholder} class={[s.formItem, s.input, s.validationCodeInput]} />
+                            value={props.modelValue} placeholder={props.placeholder} class={[s.formItem, s.input, s.validationCodeInput]}
+                            onInput={onInput} />
                         <Button disabled={isCounting.value || props.disabled} class={s.validationCodeButton} onClick={props.onClick}>{isCounting.value ? `${refCount.value}秒后重新发送` : '获取验证码'}</Button>
                     </>
                 case 'date':
