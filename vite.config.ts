@@ -20,7 +20,7 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      '/api/v1': {
+      '/api/v1/me': {
         target: 'http://121.196.236.94:8080',
       }
     }

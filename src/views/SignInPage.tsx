@@ -1,5 +1,4 @@
 import { defineComponent, reactive, ref } from "vue";
-import axios from 'axios';
 import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
 import { Center } from "../shared/Center";
@@ -7,6 +6,7 @@ import { Form, FormItem } from "../shared/Form";
 import { Icon } from "../shared/Icon";
 import { validate } from "../shared/validate";
 import s from './SignInPage.module.scss';
+import { http } from "../shared/Http";
 export const SignInPage = defineComponent({
     setup: (props, context) => {
         const formData = reactive({
@@ -31,8 +31,14 @@ export const SignInPage = defineComponent({
                 { key: 'code', type: 'pattern', regexp: /^\d{6}$/, message: '请输入正确的验证码' },
             ]))
         }
+        const onError = (error: any) => {
+            if (error.response.status === 422) {
+                Object.assign(errors, error.response.data.errors)
+            }
+            throw error
+        }
         const onClickSendValitionCode = async () => {
-            const response = await axios.post('/api/v1/me', { email: formData.email }).catch(() => { })
+            const response = await http.post('/validation_codes', { email: formData.email }).catch(onError)
             //成功
             console.log(response)
             refValkidationCode.value.startCount()
@@ -48,7 +54,7 @@ export const SignInPage = defineComponent({
                     </Center>
                     <Form onSubmit={onSubmit}>
                         <FormItem label="邮箱地址" type="text" placeholder="请输入邮箱地址" v-model={formData.email} error={errors.email?.[0]}></FormItem>
-                        <FormItem label="验证码" type="validationCode" countFrom={3} ref={refValkidationCode} placeholder="请输入验证码" v-model={formData.code} error={errors.code?.[0]}
+                        <FormItem label="验证码" type="validationCode" countFrom={60} ref={refValkidationCode} placeholder="请输入验证码" v-model={formData.code} error={errors.code?.[0]}
                             onClick={onClickSendValitionCode}
                         ></FormItem>
                         <FormItem style={{ paddingTop: '48px' }}>

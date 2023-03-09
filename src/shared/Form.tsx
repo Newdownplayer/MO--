@@ -3,6 +3,7 @@ import { computed, defineComponent, PropType, ref, VNode } from 'vue';
 import { Button } from './Button';
 import { EmojiSelect } from './EmojiSelect';
 import s from './Form.module.scss';
+import { getFriendflyError } from './getFrienflyError';
 import { Time } from './time';
 export const Form = defineComponent({
     props: {
@@ -109,7 +110,7 @@ export const FormItem = defineComponent({
                         {content.value}
                     </div>
                     <div class={s.formItem_errorHint}>
-                        <span>{props.error ?? '　'}</span>
+                        <span>{props.error ? getFriendflyError(props.error) : '　'}</span>
                     </div>
                 </label>
             </div>
