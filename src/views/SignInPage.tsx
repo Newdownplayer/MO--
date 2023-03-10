@@ -8,7 +8,7 @@ import { hasError, validate } from "../shared/validate";
 import s from './SignInPage.module.scss';
 import { http } from "../shared/Http";
 import { useBool } from "../hooks/useBool";
-import { history } from '../shared/history';
+import { useRoute, useRouter } from "vue-router";
 export const SignInPage = defineComponent({
     setup: (props, context) => {
         const formData = reactive({
@@ -21,6 +21,8 @@ export const SignInPage = defineComponent({
         })
         const refValkidationCode = ref<any>('')
         const { ref: refDisabled, toggle, on, off } = useBool(false)
+        const router = useRouter()
+        const route = useRoute()
         const onSubmit = async (e: Event) => {
             e.preventDefault();
             Object.assign(errors, {
@@ -34,9 +36,11 @@ export const SignInPage = defineComponent({
                 { key: 'code', type: 'pattern', regexp: /^\d{6}$/, message: '请输入正确的验证码' },
             ]))
             if (!hasError(errors)) {
-                const response = await http.post<{ jwt: string }>('/session', formData)
+                const response = await http.post<{ jwt: string }>('/session', formData).catch(onError)
                 localStorage.setItem('jwt', response.data.jwt)
-                history.push('/')
+                // router.push('/sing_in?return_to=' + encodeURIComponent(route.fullPath))
+                const returnTo = route.query.return_to?.toString()
+                router.push(returnTo || '/')
             }
         }
         const onError = (error: any) => {
@@ -45,14 +49,13 @@ export const SignInPage = defineComponent({
             }
             throw error
         }
-        // const onClickSendValitionCode = async () => {
-        //     on()
-        //     const response = await http.post('/validation_codes', { email: formData.email }).catch(onError).finally(off)
-        //     //成功
-        //     console.log(response)
-        //     refValkidationCode.value.startCount()
-        // }
-        const onClickSendValitionCode = () => { refValkidationCode.value.startCount() }
+        const onClickSendValitionCode = async () => {
+            on()
+            const response = await http.post('/validation_codes', { email: formData.email }).catch(onError).finally(off)
+            //成功
+            refValkidationCode.value.startCount()
+        }
+        // const onClickSendValitionCode = () => { refValkidationCode.value.startCount() }
         return () => (
             <MainLayout>{{
                 title: () => '登录',

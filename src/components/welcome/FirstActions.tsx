@@ -1,12 +1,13 @@
 import { FunctionalComponent } from "vue";
 import { RouterLink } from "vue-router";
+import { SkipFeatures } from "../../shared/SkipFeatures";
 import s from "./WelcomeLayout.module.scss";
 
 export const FirstActions: FunctionalComponent = () => {
     return <div class={s.actions}>
-        <RouterLink class={s.fake} to="/start">跳过</RouterLink>
+        <SkipFeatures class={s.fake}/>
         <RouterLink to="/welcome/2">下一页</RouterLink>
-        <RouterLink to="/start">跳过</RouterLink>
+        <SkipFeatures />
     </div>
 }
 FirstActions.displayName = 'FirstActions'
