@@ -10,11 +10,8 @@ export const FloatButton = defineComponent({
         },
     },
     setup: (props, context) => {
-        const onclick = () => {
-            console.log("on");
-        }
         return () => (
-            <div class={s.FloatButton} onClick={onclick}>
+            <div class={s.FloatButton}>
                 <Icon name="add" class={s.add}>
                 </Icon>
             </div>

@@ -18,16 +18,13 @@ import { TagEdit } from "../components/tag/TagEdit";
 import { TagCreate } from "../components/tag/TagCreate";
 import { SignInPage } from "../views/SignInPage";
 import { StatisticsPage } from "../views/StatisticsPage";
+import { http } from "../shared/Http";
 
 export const routes: RouteRecordRaw[] = [
     { path: '/', redirect: '/welcome' },
     {
         path: '/welcome',
         component: Welcome,
-        beforeEnter: (to, from, next) => {
-            localStorage.getItem('skipFeatures') === 'yes' ? next('/start') : next()
-        }
-        ,
         children: [
             { path: '', redirect: '/welcome/1', },
             { path: '1', name: 'Welcome1', components: { main: First, footer: FirstActions }, },
@@ -52,6 +49,8 @@ export const routes: RouteRecordRaw[] = [
         ]
     },
     { path: '/sign_in', component: SignInPage },
-    { path: '/statistics', component: StatisticsPage },
+    {
+        path: '/statistics', component: StatisticsPage,
+    },
     { path: '/test', component: vantTest }
 ]
