@@ -1,4 +1,4 @@
-/* 
+/*
   example
   import { Time } from 'shared/time';
   const time = new Time();
@@ -11,8 +11,14 @@
 */
 export class Time {
   date: Date;
-  constructor(date = new Date()) {
-    this.date = date;
+  constructor(date?: string | Date) {
+    if (date === undefined) {
+      this.date = new Date();
+    } else if (typeof date === 'string') {
+      this.date = new Date(date);
+    } else {
+      this.date = date
+    }
   }
   format(pattern = 'YYYY-MM-DD') {
     // 目前支持的格式有 YYYY MM DD HH mm ss SSS
@@ -51,18 +57,7 @@ export class Time {
     let date = new Date(this.date.getTime());
     switch (unit) {
       case 'year':
-        const currentDate = date.getDate()
-        date.setDate(1)
-        date.setFullYear(date.getFullYear() + amount)
-        const targetDate = new Date(
-          date.getFullYear(),
-          date.getMonth() + 1,
-          0,
-          0,
-          0,
-          0,
-        ).getDate()
-        date.setDate(Math.min(currentDate, targetDate))
+        date.setFullYear(date.getFullYear() + amount);
         break;
       case 'month':
         const d = date.getDate()
