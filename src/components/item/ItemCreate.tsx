@@ -1,5 +1,6 @@
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, onMounted, PropType, ref } from "vue";
 import { MainLayout } from "../../layouts/MainLayout";
+import { http } from '../../shared/Http';
 import { Icon } from "../../shared/Icon";
 import { Tabs, Tab } from "../../shared/Tabs";
 import { InputPad } from "./InputPad";
@@ -12,15 +13,22 @@ export const ItemCreate = defineComponent({
     },
     setup: (props, context) => {
         const refKind = ref('支出')
-        const refExpenseTags = ref([
-            { id: 1, name: '餐饮', sign: '￥', category: 'expense' },
-            { id: 2, name: '交通', sign: '￥', category: 'expense' },
-        ])
-        const refIncomeTags = ref([
-            { id: 1, name: '工资', sign: '￥', category: 'income' },
-            { id: 2, name: '加班费', sign: '￥', category: 'income' },
-
-        ])
+        onMounted(async () => {
+            const response = await http.get<{ resources: Tag[] }>('/tags', {
+                kind: 'expenses',
+                _mock: 'tagIndex'
+            })
+            refExpensesTags.value = response.data.resources
+        })
+        const refExpensesTags = ref<Tag[]>([])
+        onMounted(async () => {
+            const response = await http.get<{ resources: Tag[] }>('/tags', {
+                kind: 'income',
+                _mock: 'tagIndex'
+            })
+            refIncomeTags.value = response.data.resources
+        })
+        const refIncomeTags = ref<Tag[]>([])
         return () => (
             <MainLayout>{
                 {
@@ -38,7 +46,7 @@ export const ItemCreate = defineComponent({
                                             新增
                                         </div>
                                     </div>
-                                    {refExpenseTags.value.map(tag =>
+                                    {refExpensesTags.value.map(tag =>
                                         <div class={[s.tag, s.selected]}>
                                             <div class={s.sign}>
                                                 {tag.sign}

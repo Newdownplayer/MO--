@@ -16,7 +16,7 @@ const whiteList: Record<string, 'exact' | 'startsWith'> = {
     '/welcome': 'startsWith',
     '/sign_in': 'startsWith',
 }
-router.beforeEach(async (to, from) => {
+router.beforeEach((to, from) => {
     for (const key in whiteList) {
         const value = whiteList[key]
         return (value === 'exact' && to.path === key) || (value === 'startsWith' && to.path.startsWith(key))
