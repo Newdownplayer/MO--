@@ -1,5 +1,6 @@
 .tabs {
     position: relative;
+    box-sizing: content-box;
 
     &_nav {
         background: linear-gradient(to right, var(--navbar-bg-start), var(--navbar-bg-end));
@@ -8,7 +9,9 @@
         align-items: center;
         position: sticky;
         z-index: 1;
-        top: 0;
+        top: 0;    
+  
+        
 
         >li {
             flex-grow: 1;

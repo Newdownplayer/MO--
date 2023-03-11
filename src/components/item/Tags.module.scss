@@ -1,33 +1,12 @@
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 88px);
-}
-
-.tabs {
-    flex-grow: 1;
-    flex-shrink: 1;
-    overflow: auto;
-}
-
-.inputPad_wrapper {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    flex-grow: 0;
-    flex-shrink: 0;
+.more {
+    padding: 16px;
+    text-align: center;
 }
 
 .tags_wrapper {
     display: flex;
     flex-wrap: wrap;
     padding-top: 16px;
-}
-
-.createTag {
-    width: 24px;
-    height: 24px;
-    fill: var(--main);
 }
 
 .tag {
@@ -60,7 +39,7 @@
         }
     }
 }
-
-.loadMore {
-    text-align: center;
+.createTag{
+    width: 6.5vw;
+    height: 6.5vw;
 }
