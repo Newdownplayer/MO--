@@ -31,7 +31,3 @@ type Resource<T> = {
 type ResourceError = {
     errors: Record<string, string[]>
 }
-declare module '*.scss' {
-    const content: Record<string, any> = {}
-    export default content
-}

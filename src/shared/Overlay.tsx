@@ -54,9 +54,6 @@ export const OverlayIcon = defineComponent({
 
     setup: (props, context) => {
         const refOverlayVisible = ref(false)
-        const onclick = () => {
-            console.log("hi");
-        }
         const onClickMenu = () => {
             refOverlayVisible.value = !refOverlayVisible.value
         }
