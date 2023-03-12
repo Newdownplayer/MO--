@@ -16,7 +16,7 @@ export const TagForm = defineComponent({
             id: undefined,
             name: '',
             sign: '',
-            kind: route.query.kind!.toString(),
+            kind: route.query.kind?.toString(),
         })
         const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({})
         const router = useRouter()
