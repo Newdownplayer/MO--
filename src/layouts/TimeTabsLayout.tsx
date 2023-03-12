@@ -1,5 +1,6 @@
 import { Overlay } from "vant";
 import { defineComponent, PropType, reactive, ref } from "vue";
+import { ItemSummary } from "../components/item/ItemSummary";
 import { Form, FormItem } from "../shared/Form";
 import { OverlayIcon } from "../shared/Overlay";
 import { Tab, Tabs } from "../shared/Tabs";
@@ -7,36 +8,20 @@ import { Time } from "../shared/time";
 import { MainLayout } from "./MainLayout";
 import s from './TimeTabsLayout.module.scss';
 
-const demo = defineComponent({
-    props: {
-        startDate: {
-            type: String as PropType<string>,
-        },
-        endDate: {
-            type: String as PropType<string>,
-        },
-        name: {
-            type: String as PropType<string>
-        }
-    },
-})
 export const TimeTabsLayout = defineComponent({
     props: {
-        name: {
-            type: String as PropType<string>,
-        },
         component: {
-            type: Object as PropType<typeof demo>,
+            type: Object as PropType<typeof ItemSummary>,
             required: true
         }
     },
     setup: (props, context) => {
         const refSelected = ref('本月')
         const time = new Time()
-        const customTime = reactive({
-            start: new Time().format(),
-            end: new Time().format()
-        })
+        const customTime = reactive<{
+            start?: string,
+            end?: string,
+        }>({})
         const timeList = [
             { start: time.firstDayOfMonth(), end: time.lastDayOfMonth() },
             { start: time.add(-1, 'month').firstDayOfMonth(), end: time.add(-1, 'month').lastDayOfMonth() },
