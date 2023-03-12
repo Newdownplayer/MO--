@@ -39,8 +39,15 @@ export const InputPad = defineComponent({
             { text: '.', onClick: () => { appendText('.') } },
             { text: '删除', onClick: () => { removeText() } },
             { text: '清空', onClick: () => { refAmount.value = '0' } },
-            { text: '提交', onClick: () => context.emit('update:amount', parseFloat(refAmount.value) * 100) },
+            {
+                text: '提交', onClick: () => {
+                    context.emit('update:amount', parseFloat(refAmount.value) * 100)
+                    context.emit('update:note', refNote.value)
+                    props.onSubmit?.()
+                }
+            },
         ]
+        const refNote = ref("")
         const appendText = (n: number | string) => {
             const nString = n.toString()
             const dotIndex = refAmount.value.indexOf('.')
@@ -84,7 +91,7 @@ export const InputPad = defineComponent({
                             />
                         </Popup>
                     </span>
-                    <input type="text" placeholder="添加备注" maxlength={10} class={s.notes} />
+                    <input type="text" placeholder="添加备注" maxlength={10} class={s.notes}>{refNote.value}</input>
                 </span>
                 <span class={s.amount}>{refAmount.value}</span>
             </div>

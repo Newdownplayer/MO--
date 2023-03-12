@@ -15,3 +15,23 @@ type Resources<T = any> = {
         count: number
     }
 }
+type Item = {
+    id: number
+    user_id: number
+    amount: number
+    tags_id: number[]
+    note: string
+    happen_at: string
+    kind: expenses | income
+}
+type Resource<T> = {
+    resource: T
+}
+
+type ResourceError = {
+    errors: Record<string, string[]>
+}
+declare module '*.scss' {
+    const content: Record<string, any> = {}
+    export default content
+}
