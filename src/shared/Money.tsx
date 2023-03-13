@@ -7,17 +7,22 @@ export const Money = defineComponent({
         },
     },
     setup: (props, context) => {
-        const addZero = (n: number) => {
-            const nString = n.toString()
-            const dotIndex = n.toString().indexOf('.')
-            if (dotIndex < 0) { return nString + '.00' }
-            else if (nString.substring(dotIndex).length === 2) { return nString + '0' }
-            else {
-                return nString
-            }
-        }
         return () => (
             <div>{addZero(props.value / 100)}</div>
         )
     }
 })
+const addZero = (n: number) => {
+    const nString = n.toString()
+    const dotIndex = nString.indexOf('.')
+    if (dotIndex < 0) {
+        return nString + '.00'
+    } else if (nString.substring(dotIndex).length === 2) {
+        return nString + '0'
+    } else {
+        return nString
+    }
+}
+export const getMoney = (n: number) => {
+    return addZero(n / 100)
+}
