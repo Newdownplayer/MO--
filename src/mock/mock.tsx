@@ -6,9 +6,15 @@ faker.setLocale('zh_CN');
 export const mockItemSummary: Mock = config => {
     return [200, {
         "groups": [
-            { "happen_at": "2018-06-18T00:00:00.000+0800", "amount": 100 },
-            { "happen_at": "2018-06-22T00:00:00.000+0800", "amount": 300 },
-            { "happen_at": "2018-06-29T00:00:00.000+0800", "amount": 200 }
+            { "happen_at": "2023-01-02T00:00:00.000+0800", "amount": 800 },
+            { "happen_at": "2023-01-09T00:00:00.000+0800", "amount": 1200 },
+            { "happen_at": "2023-01-22T00:00:00.000+0800", "amount": 3000 },
+            { "happen_at": "2023-02-10T00:00:00.000+0800", "amount": 500 },
+            { "happen_at": "2023-02-21T00:00:00.000+0800", "amount": 300 },
+            { "happen_at": "2023-02-22T00:00:00.000+0800", "amount": 200 },
+            { "happen_at": "2023-03-08T00:00:00.000+0800", "amount": 7500 },
+            { "happen_at": "2023-03-11T00:00:00.000+0800", "amount": 10000 },
+            { "happen_at": "2023-03-12T00:00:00.000+0800", "amount": 2600 }
         ],
         "summary": 600
     }]

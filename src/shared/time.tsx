@@ -12,7 +12,7 @@
 export class Time {
   date: Date;
   constructor(date?: string | Date) {
-    if (date === undefined) {
+    if (!date) {
       this.date = new Date();
     } else if (typeof date === 'string') {
       this.date = new Date(date);
@@ -51,6 +51,9 @@ export class Time {
   }
   getRaw() {
     return this.date
+  }
+  getTimestamp() {
+    return this.date.getTime()
   }
   add(amount: number, unit: 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond') {
     // return new Time but not change this.date
