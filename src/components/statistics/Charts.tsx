@@ -8,9 +8,14 @@ import { PieChart } from "./PieChart";
 
 export const Charts = defineComponent({
     props: {
-        name: {
+        startDate: {
             type: String as PropType<string>,
+            required: false
         },
+       endDate: {
+            type: String as PropType<string>,
+            required: false
+        }
     },
     setup: (props, context) => {
         const category = ref('expense')
@@ -22,7 +27,7 @@ export const Charts = defineComponent({
                 ]} />
                 <LineChart />
                 <PieChart />
-                <Bars/>
+                <Bars />
             </div >
         )
     }
