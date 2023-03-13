@@ -3,6 +3,13 @@ import { AxiosRequestConfig } from 'axios';
 type Mock = (config: AxiosRequestConfig) => [number, any]
 
 faker.setLocale('zh_CN');
+export const mockItemIndexBalance: Mock = config => {
+    return [200, {
+        expenses: 9900,
+        income: 9900,
+        balance: 0
+    }]
+}
 export const mockItemIndex: Mock = (config) => {
     const { kind, page } = config.params
     const per_page = 25
@@ -12,12 +19,21 @@ export const mockItemIndex: Mock = (config) => {
         per_page,
         count,
     })
+    const createTag = (attrs?: any) =>
+    ({
+      id: createId(),
+      name: faker.lorem.word(),
+      sign: faker.internet.emoji(),
+      kind: 'expenses',
+      ...attrs
+    })
     const createItem = (n = 1, attrs?: any) =>
         Array.from({ length: n }).map(() => ({
             id: createId(),
             user_id: createId(),
             amount: Math.floor(Math.random() * 10000),
             tags_id: [createId()],
+            tags: [createTag()],
             happen_at: faker.date.past().toISOString(),
             kind: config.params.kind,
         }))
@@ -95,8 +111,17 @@ export const mockTagIndex: Mock = (config) => {
             kind: config.params.kind,
             ...attrs
         }))
+    const incomess = 9900
+    const exportss = 10000
+    const balances = incomess - exportss
     const createBody = (n = 1, attrs?: any) => ({
-        resources: createTag(n), pager: createPager(page)
+        resources: createTag(n),
+        pager: createPager(page),
+        summary: {
+            income: incomess,
+            export: exportss,
+            balance: balances,
+        }
     })
     if (kind === 'expenses' && (!page || page === 1)) {
         return [200, createBody(19)]
@@ -109,5 +134,4 @@ export const mockTagIndex: Mock = (config) => {
     } else {
         return [200, { resources: createTag(20) }]
     }
-
 }

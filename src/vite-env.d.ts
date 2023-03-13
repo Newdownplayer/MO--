@@ -20,6 +20,7 @@ type Item = {
     user_id: number
     amount: number
     tags_id: number[]
+    tags?: Tag[]
     note: string
     happen_at: string
     kind: expenses | income
