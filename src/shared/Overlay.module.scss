@@ -39,6 +39,11 @@
     padding: 12px 16px;
 }
 
+.email {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .overlay {
     top: var(--top-safe-area-height);
