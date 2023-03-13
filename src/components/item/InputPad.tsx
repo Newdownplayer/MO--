@@ -11,9 +11,6 @@ export const InputPad = defineComponent({
         amount: {
             type: Number as PropType<number>,
         },
-        note: {
-            type: String as PropType<string>,
-        },
         onSubmit: {
             type: Function as PropType<() => void>
         }
@@ -42,7 +39,6 @@ export const InputPad = defineComponent({
             {
                 text: '提交', onClick: () => {
                     context.emit('update:amount', parseFloat(refAmount.value) * 100)
-                    context.emit('update:note', refNote.value)
                     props.onSubmit?.()
                 }
             },
@@ -91,7 +87,6 @@ export const InputPad = defineComponent({
                             />
                         </Popup>
                     </span>
-                    <input type="text" placeholder="添加备注" maxlength={10} class={s.notes}>{refNote.value}</input>
                 </span>
                 <span class={s.amount}>{refAmount.value}</span>
             </div>
