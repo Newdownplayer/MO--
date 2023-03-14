@@ -1,4 +1,4 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import s from './StartPage.module.scss';
 import { Button } from "../shared/Button";
 import { FloatButton } from "../shared/FloatButton";
