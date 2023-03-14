@@ -76,8 +76,7 @@ export const FormItem = defineComponent({
                     </select>
                 case 'text':
                     return <input
-                        value={props.modelValue} placeholder={props.placeholder} class={[s.formItem, s.input]}
-                        onInput={onInput} />
+                        value={props.modelValue} placeholder={props.placeholder} class={[s.formItem, s.input]} onInput={onInput} />
                 case 'emojiSelect':
                     return <EmojiSelect
                         modelValue={props.modelValue?.toString()} class={[s.form, s.emojiList, s.error]}
@@ -87,7 +86,8 @@ export const FormItem = defineComponent({
                         <input
                             value={props.modelValue} placeholder={props.placeholder} class={[s.formItem, s.input, s.validationCodeInput]}
                             onInput={onInput} />
-                        <Button disabled={isCounting.value || props.disabled} class={s.validationCodeButton} onClick={props.onClick}>{isCounting.value ? `${refCount.value}秒后重新发送` : '获取验证码'}</Button>
+                        <Button disabled={isCounting.value || props.disabled} class={s.validationCodeButton}
+                            onClick={props.onClick}>{isCounting.value ? `${refCount.value}秒后重新发送` : '获取验证码'}</Button>
                     </>
                 case 'date':
                     return <>
