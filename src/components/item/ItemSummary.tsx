@@ -1,4 +1,5 @@
 import { defineComponent, onMounted, PropType, reactive, ref, watch } from "vue";
+import { RouterLink } from "vue-router";
 import { Button } from "../../shared/Button";
 import { DateTime } from "../../shared/DateTime";
 import { FloatButton } from "../../shared/FloatButton";
@@ -105,7 +106,9 @@ export const ItemSummary = defineComponent({
                 ) : (
                     <div>记录为空</div>
                 )}
-                <FloatButton iconName="add" />
+                <RouterLink to='/items/create'>
+                    <FloatButton iconName='add' />
+                </RouterLink>
             </div>
         )
     },
