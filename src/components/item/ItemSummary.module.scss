@@ -85,3 +85,29 @@
     padding: 32px 0;
     text-align: center;
 }
+
+.button {
+    border: none;
+    margin: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    min-width: 80px;
+
+    &_wrapper {
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.logo {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+}

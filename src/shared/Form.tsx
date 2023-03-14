@@ -26,7 +26,7 @@ export const FormItem = defineComponent({
             type: String
         },
         modelValue: {
-            type: [String, Number]
+            type: [String, Number, Date]
         },
         type: {
             type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode' | 'select'>,
@@ -94,7 +94,7 @@ export const FormItem = defineComponent({
                         <input readonly={true} value={props.modelValue} placeholder={props.placeholder} class={[s.formItem, s.input]}
                             onClick={() => { refDateVisible.value = true }} />
                         <Popup position='bottom' v-model:show={refDateVisible.value}>
-                            <DatePicker v-modelValue={props.modelValue} title="选择年月日"
+                            <DatePicker v-modelValue={props.modelValue ? new Date(props.modelValue) : new Date} title="选择年月日"
                                 onConfirm={(date: Date) => {
                                     context.emit('update:modelValue', new Time(date).format())
                                     refDateVisible.value = false
