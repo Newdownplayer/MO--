@@ -56,7 +56,6 @@ export const Charts = defineComponent({
                 value: item.amount
             }))
         )
-
         onMounted(async () => {
             const response = await http.get<{ groups: Data2; summary: number }>('/items/summary', {
                 happen_after: props.startDate,
@@ -67,6 +66,13 @@ export const Charts = defineComponent({
             })
             data2.value = response.data.groups
         })
+        const betterData3 = computed<{ tag: Tag, amount: number, percent: number }[]>(() => {
+            const total = data2.value.reduce((sum, item) => sum + item.amount, 0)
+            return data2.value.map(item => ({
+                ...item,
+                percent: Math.round(item.amount / total * 100)
+            }))
+        })
         return () => (
             <div class={s.wrapper}>
                 <FormItem label="类型" class={s.item} v-model={kind.value} type="select" option={[
@@ -75,7 +81,7 @@ export const Charts = defineComponent({
                 ]} />
                 <LineChart data={betterData1.value} />
                 <PieChart data={betterData2.value} />
-                <Bars />
+                <Bars data={betterData3.value} />
             </div >
         )
     }
