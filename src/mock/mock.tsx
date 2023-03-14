@@ -3,23 +3,26 @@ import { AxiosRequestConfig } from 'axios';
 type Mock = (config: AxiosRequestConfig) => [number, any]
 
 faker.setLocale('zh_CN');
-export const mockItemSummary: Mock = config => {
-    return [200, {
-        "groups": [
-            { "happen_at": "2023-01-02T00:00:00.000+0800", "amount": 800 },
-            { "happen_at": "2023-01-09T00:00:00.000+0800", "amount": 1200 },
-            { "happen_at": "2023-01-22T00:00:00.000+0800", "amount": 3000 },
-            { "happen_at": "2023-02-10T00:00:00.000+0800", "amount": 500 },
-            { "happen_at": "2023-02-21T00:00:00.000+0800", "amount": 300 },
-            { "happen_at": "2023-02-22T00:00:00.000+0800", "amount": 200 },
-            { "happen_at": "2023-03-08T00:00:00.000+0800", "amount": 7500 },
-            { "happen_at": "2023-03-11T00:00:00.000+0800", "amount": 10000 },
-            { "happen_at": "2023-03-12T00:00:00.000+0800", "amount": 2600 }
-        ],
-        "summary": 600
-    }]
+export const mockItemSummary: Mock = (config) => {
+    if (config.params.group_by === 'happend_at') {
+        return [200, {
+            groups: [
+                { happen_at: '2022-07-18T00:00:00.000+0800', amount: 100 },
+                { happen_at: '2022-07-22T00:00:00.000+0800', amount: 300 },
+                { happen_at: '2022-07-29T00:00:00.000+0800', amount: 200 }],
+            summary: 600
+        }]
+    } else {
+        return [200, {
+            groups: [
+                { tag_id: 1, tag: { id: 1, name: '交通' }, amount: 100 },
+                { tag_id: 2, tag: { id: 2, name: '吃饭' }, amount: 300 },
+                { tag_id: 3, tag: { id: 3, name: '购物' }, amount: 200 }],
+            summary: 600
+        }]
+    }
 }
-export const mockItemIndexBalance: Mock = config => {
+export const mockItemIndexBalance: Mock = (config) => {
     return [200, {
         expenses: 9900,
         income: 9900,
@@ -30,13 +33,8 @@ export const mockItemIndex: Mock = (config) => {
     const { kind, page } = config.params
     const per_page = 25
     const count = 26
-    const createPaper = (page = 1) => ({
-        page,
-        per_page,
-        count,
-    })
-    const createTag = (attrs?: any) =>
-    ({
+    const createPaper = (page = 1) => ({ page, per_page, count, })
+    const createTag = (attrs?: any) => ({
         id: createId(),
         name: faker.lorem.word(),
         sign: faker.internet.emoji(),
@@ -66,8 +64,7 @@ export const mockItemIndex: Mock = (config) => {
     }
 }
 export const mockTagEdit: Mock = config => {
-    const createTag = (attrs?: any) =>
-    ({
+    const createTag = (attrs?: any) => ({
         id: createId(),
         name: faker.lorem.word(),
         sign: faker.internet.emoji(),

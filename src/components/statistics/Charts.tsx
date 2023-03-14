@@ -24,6 +24,8 @@ export const Charts = defineComponent({
     setup: (props, context) => {
         const kind = ref('expenses')
         const data1 = ref<Data1>([])
+        type Data2Item = { tag_id: number; tag: Tag; amount: number }
+        type Data2 = Data2Item[]
         const betterData1 = computed<[string, number][]>(() => {
             if (!props.startDate || !props.endDate) { return [] }
             const array = []
@@ -47,6 +49,24 @@ export const Charts = defineComponent({
             })
             data1.value = response.data.groups
         })
+        const data2 = ref<Data2>([])
+        const betterData2 = computed<{ name: string; value: number }[]>(() =>
+            data2.value.map((item) => ({
+                name: item.tag.name,
+                value: item.amount
+            }))
+        )
+
+        onMounted(async () => {
+            const response = await http.get<{ groups: Data2; summary: number }>('/items/summary', {
+                happen_after: props.startDate,
+                happen_before: props.endDate,
+                kind: kind.value,
+                group_by: 'tag_id',
+                _mock: 'itemSummary'
+            })
+            data2.value = response.data.groups
+        })
         return () => (
             <div class={s.wrapper}>
                 <FormItem label="类型" class={s.item} v-model={kind.value} type="select" option={[
@@ -54,7 +74,7 @@ export const Charts = defineComponent({
                     { value: 'income', text: '收入' }
                 ]} />
                 <LineChart data={betterData1.value} />
-                <PieChart />
+                <PieChart data={betterData2.value} />
                 <Bars />
             </div >
         )
