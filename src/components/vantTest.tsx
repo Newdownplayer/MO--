@@ -6,6 +6,7 @@ import { Popup, NumberKeyboard, Form, Field, CellGroup } from 'vant';
 
 import 'vant/lib/index.css';
 import { Time } from "../shared/time";
+import { defineStore } from "pinia";
 export const vantTest = defineComponent({
 
     props: {
@@ -33,5 +34,15 @@ export const vantTest = defineComponent({
             <div>{currentTime}</div>
         </>
         )
+    }
+})
+const useStore = defineStore('store', {
+    state: () => ({
+        count: 0
+    }),
+    actions: {
+        increment() {
+            this.count++
+        }
     }
 })
