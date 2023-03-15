@@ -22,7 +22,7 @@ export const TagEdit = defineComponent({
         }
         const router = useRouter()
         const onDelete = async (options?: { withItems: boolean }) => {
-            await http.delete(`/tags/${numberId}`, { withItems: options?.withItems ? 'true' : 'false' })
+            await http.delete(`/tags/${numberId}`, { with_items: options?.withItems ? 'true' : 'false' })
             await Dialog.confirm({
                 title: '确认',
                 message: '你真的要删除吗？'
