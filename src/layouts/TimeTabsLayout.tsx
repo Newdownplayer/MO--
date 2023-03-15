@@ -1,5 +1,6 @@
 import { Overlay } from "vant";
 import { defineComponent, PropType, reactive, ref } from "vue";
+import { RouterLink } from "vue-router";
 import { ItemSummary } from "../components/item/ItemSummary";
 import { Form, FormItem } from "../shared/Form";
 import { OverlayIcon } from "../shared/Overlay";
@@ -52,7 +53,7 @@ export const TimeTabsLayout = defineComponent({
         }
         return () => (<>
             <MainLayout>{{
-                title: () => 'MO记账',
+                title: () => <RouterLink to="/items" >MO记账</RouterLink>,
                 icon: () => <OverlayIcon />,
                 default: () => (
                     <>

@@ -4,7 +4,7 @@ import { Button } from "../../shared/Button";
 import { TagForm } from "./TagForm";
 import s from './Tag.module.scss';
 import { BackIcon } from "../../shared/BackIcon";
-import { useRoute, useRouter } from "vue-router";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import { http } from "../../shared/Http";
 import { Dialog } from "vant";
 export const TagEdit = defineComponent({
@@ -32,7 +32,9 @@ export const TagEdit = defineComponent({
         return () => (
             <MainLayout>{{
                 title: () => '编辑标签',
-                icon: () => <BackIcon />,
+                icon: () => <>
+                    <RouterLink to="/items" ><BackIcon class={s.navIcon} /></RouterLink>
+                </>,
                 default: () => (<>
                     <TagForm id={numberId} />
                     <div class={s.actions}>

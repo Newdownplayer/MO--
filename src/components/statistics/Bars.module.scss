@@ -30,7 +30,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .do{
+
+      .do {
         margin-left: auto;
       }
     }
@@ -70,5 +71,14 @@
     .bar_inner {
       background: #91cc75;
     }
+  }
+}
+
+.tips {
+  text-align: center;
+  padding: 16px 0;
+
+  >span {
+    color: var(--main);
   }
 }

@@ -18,6 +18,13 @@
     flex-shrink: 0;
     width: 100vw;
 }
+.navIcon{
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .tags_wrapper {
     display: flex;

@@ -21,7 +21,7 @@ export const Bars = defineComponent({
                                     <div class={s.bar_text}>
                                         <span> {tag.name} - {percent}% </span>
                                         <span class={s.do}>￥</span>
-                                        <span><Money value={amount}/></span>
+                                        <span><Money value={amount} /></span>
                                     </div>
                                     <div class={s.bar}>
                                         <div class={s.bar_inner} style={{ width: `${percent}%` }}></div>
@@ -31,6 +31,7 @@ export const Bars = defineComponent({
                         )
                     }) : <div>没有数据</div>
                 }
+                <div class={s.tips}>Tips：点击上方<span>MO记账</span>返回首页</div>
             </div >
         )
     }

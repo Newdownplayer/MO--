@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { Dialog } from "vant";
 import { defineComponent, PropType, reactive } from "vue";
-import { useRouter } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
 import { BackIcon } from "../../shared/BackIcon";
 import { http } from "../../shared/Http";
@@ -44,7 +44,7 @@ export const ItemCreate = defineComponent({
                 { key: 'happen_at', type: 'required', message: '时间必填' },
             ]))
             if (hasError(errors)) {
-                 Dialog.alert({
+                Dialog.alert({
                     title: '出错',
                     message: Object.values(errors).filter(i => i.length > 0).join('\n')
                 })
@@ -58,7 +58,9 @@ export const ItemCreate = defineComponent({
             <MainLayout>{
                 {
                     title: () => '记一笔',
-                    icon: () => <BackIcon class={s.navIcon} />,
+                    icon: () => <>
+                        <RouterLink to="/items" ><BackIcon class={s.navIcon} /></RouterLink>
+                    </>,
                     default: () => <>
                         <div class={s.wrapper}>
                             <Tabs v-model:selected={formData.kind} class={s.tabs}>

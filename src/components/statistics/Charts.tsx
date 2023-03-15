@@ -22,7 +22,7 @@ export const Charts = defineComponent({
         }
     },
     setup: (props, context) => {
-        const kind = ref('expenses')
+        const kind = ref('expense')
         const data1 = ref<Data1>([])
         type Data2Item = { tag_id: number; tag: Tag; amount: number }
         type Data2 = Data2Item[]
