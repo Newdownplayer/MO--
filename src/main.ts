@@ -32,6 +32,6 @@ app.mount('#app')
 //     }
 //     return meStore.mePromise!.then(
 //         () => true,
-//         () => { return '/sign_in?return_to' + to.path }
+//         () => { return '/sign_in?return_to' + from.path }
 //     )
 // })

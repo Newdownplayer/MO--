@@ -30,7 +30,7 @@ export const ItemSummary = defineComponent({
         watch(
             () => [props.startDate, props.endDate],
             () => {
-                itemStore.reset()
+                itemStore.$reset()
                 itemStore.fetchItems()
             })
         const itemsBalance = reactive({ expenses: 0, income: 0, balance: 0 })
@@ -93,7 +93,7 @@ export const ItemSummary = defineComponent({
                         </ol>
                         <div class={s.more}>
                             {itemStore.hasMore
-                                ? <Button onClick={() => itemStore.fetchItems(props.startDate, props.endDate)}>加载更多</Button>
+                                ? <Button onClick={() => itemStore.fetchNextPage(props.startDate, props.endDate)}>加载更多</Button>
                                 : <span>没有更多</span>
                             }
                         </div>

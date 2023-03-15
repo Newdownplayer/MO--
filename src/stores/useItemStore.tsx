@@ -7,8 +7,9 @@ type State = {
     page: number
 }
 type Actions = {
-    reset: () => void
     fetchItems: (startDate?: string, endDate?: string) => void
+    fetchNextPage: (startDate?: string, endDate?: string) => void
+    _fetch: (startDate?: string, endDate?: string, firstPage?: boolean) => void
 }
 export const useItemStore = (id: string | string[]) =>
     defineStore<string, State, {}, Actions>(typeof id === 'string' ? id : id.join('-'), {
@@ -18,12 +19,7 @@ export const useItemStore = (id: string | string[]) =>
             page: 0
         }),
         actions: {
-            reset() {
-                this.items = []
-                this.hasMore = false
-                this.page = 0
-            },
-            async fetchItems(startDate, endDate) {
+            async _fetch(startDate, endDate, firstPage) {
                 if (!startDate || !endDate) {
                     return
                 }
@@ -32,7 +28,7 @@ export const useItemStore = (id: string | string[]) =>
                     {
                         happen_after: startDate,
                         happen_before: endDate,
-                        page: this.page + 1
+                        page: firstPage ? 1 : this.page + 1
                     },
                     {
                         _mock: 'itemIndex',
@@ -40,9 +36,15 @@ export const useItemStore = (id: string | string[]) =>
                     }
                 )
                 const { resources, pager } = response.data
-                this.items?.push(...resources)
+                firstPage ? this.items = resources : this.items?.push(...resources)
                 this.hasMore = (pager.page - 1) * pager.per_page + resources.length < pager.count
                 this.page += 1
+            },
+            async fetchNextPage(startDate, endDate) {
+                this._fetch(startDate, endDate, false)
+            },
+            async fetchItems(startDate, endDate) {
+                this._fetch(startDate, endDate, true)
             }
         }
     })()
