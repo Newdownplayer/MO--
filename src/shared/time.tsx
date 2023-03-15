@@ -12,7 +12,7 @@
 export class Time {
   date: Date;
   constructor(date?: string | Date) {
-    if (!date) {
+    if (date === null || date === undefined || date === '') {
       this.date = new Date();
     } else if (typeof date === 'string') {
       this.date = new Date(date);

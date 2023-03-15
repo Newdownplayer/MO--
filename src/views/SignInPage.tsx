@@ -58,7 +58,6 @@ export const SignInPage = defineComponent({
             //成功
             refValkidationCode.value.startCount()
         }
-        // const onClickSendValitionCode = () => { refValkidationCode.value.startCount() }
         return () => (
             <MainLayout>{{
                 title: () => '登录',

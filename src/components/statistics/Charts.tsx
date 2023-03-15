@@ -22,7 +22,7 @@ export const Charts = defineComponent({
         }
     },
     setup: (props, context) => {
-        const kind = ref('expense')
+        const kind = ref('expenses')
         const data1 = ref<Data1>([])
         type Data2Item = { tag_id: number; tag: Tag; amount: number }
         type Data2 = Data2Item[]
@@ -81,7 +81,7 @@ export const Charts = defineComponent({
         watch(() => kind.value, () => { fetchData1(); fetchData2() })
         return () => (
             <div class={s.wrapper}>
-                <FormItem label="类型" class={s.item} v-model={kind.value} type="select" option={[{ value: 'expense', text: '支出' }, { value: 'income', text: '收入' }]} />
+                <FormItem label="类型" class={s.item} v-model={kind.value} type="select" option={[{ value: 'expenses', text: '支出' }, { value: 'income', text: '收入' }]} />
                 <LineChart data={betterData1.value} />
                 <PieChart data={betterData2.value} />
                 <Bars data={betterData3.value} />
