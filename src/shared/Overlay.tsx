@@ -25,6 +25,7 @@ export const Overlay = defineComponent({
                 message: '确定要退出登录吗？'
             })
             localStorage.removeItem('jwt')
+            window.location.reload()
         }
         return () => <>
             <div class={s.mask} onClick={close}></div>
@@ -42,6 +43,12 @@ export const Overlay = defineComponent({
                 </section>
                 <nav>
                     <ul class={s.table}>
+                        <li>
+                            <RouterLink to="/items" class={s.action}>
+                                <Icon name="piggy" class={s.icon} />
+                                <span>记一笔</span>
+                            </RouterLink>
+                        </li>
                         <li>
                             <RouterLink to="/statistics" class={s.action}>
                                 <Icon name="statistics" class={s.icon}></Icon><span>统计图表</span>

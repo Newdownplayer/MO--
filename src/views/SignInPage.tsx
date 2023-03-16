@@ -52,11 +52,15 @@ export const SignInPage = defineComponent({
             }
             throw error
         }
-        const onClickSendValitionCode = async () => {
-            on()
-            await http.post('/validation_codes', { email: formData.email }, { _autoLoading: true }).catch(onError).finally(off)
-            //成功
-            refValkidationCode.value.startCount()
+        // const onClickSendValitionCode = async () => {
+        //     on()
+        //     await http.post('/validation_codes', { email: formData.email }, { _autoLoading: true }).catch(onError).finally(off)
+        //     //成功
+        //     refValkidationCode.value.startCount()
+        // }
+        const onClickSendValitionCode = () => { refValkidationCode.value.startCount() }
+        const onSign_in = () => {
+            router.push('/start')
         }
         return () => (
             <MainLayout>{{
@@ -73,7 +77,7 @@ export const SignInPage = defineComponent({
                             onClick={onClickSendValitionCode}
                         ></FormItem>
                         <FormItem style={{ paddingTop: '48px' }}>
-                            <Button type="submit">登录</Button>
+                            <Button type="submit" onClick={onSign_in}>登录</Button>
                         </FormItem>
                     </Form>
                 </>)

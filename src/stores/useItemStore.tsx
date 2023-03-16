@@ -11,7 +11,7 @@ type Actions = {
     fetchNextPage: (startDate?: string, endDate?: string) => void
     _fetch: (startDate?: string, endDate?: string, firstPage?: boolean) => void
 }
-export const useItemStore = (id: string | string[]) =>
+export const useItemStore = (id: string | (string | undefined)[]) =>
     defineStore<string, State, {}, Actions>(typeof id === 'string' ? id : id.join('-'), {
         state: () => ({
             items: [],

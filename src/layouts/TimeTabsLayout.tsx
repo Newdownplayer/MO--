@@ -53,7 +53,7 @@ export const TimeTabsLayout = defineComponent({
         }
         return () => (<>
             <MainLayout>{{
-                title: () => <RouterLink to="/items" >MO记账</RouterLink>,
+                title: () => <RouterLink to="/start" >MO记账</RouterLink>,
                 icon: () => <OverlayIcon />,
                 default: () => (
                     <>

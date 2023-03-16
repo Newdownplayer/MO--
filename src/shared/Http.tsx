@@ -29,7 +29,7 @@ export class Http {
 }
 
 const mock = (response: AxiosResponse) => {
-    if ( location.hostname !== 'localhost'
+    if (location.hostname !== 'localhost'
         && location.hostname !== '127.0.0.1'
         && location.hostname !== '192.168.3.57') { return false }
     switch (response.config?._mock) {
@@ -61,7 +61,7 @@ const mock = (response: AxiosResponse) => {
     return false
 }
 
-export const http = new Http('/api/v1')
+export const http = new Http('http://121.196.236.94:3000/api/v1')
 http.instance.interceptors.response.use((response) => {
     if (response.config._autoLoading === true) {
         Toast.clear();
