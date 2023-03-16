@@ -39,11 +39,12 @@ export const SignInPage = defineComponent({
                 { key: 'code', type: 'pattern', regexp: /^\d{6}$/, message: '请输入正确的验证码' },
             ]))
             if (!hasError(errors)) {
-                const response = await http.post<{ jwt: string }>('/session', formData, { _autoLoading: true }).catch(onError)
-                localStorage.setItem('jwt', response.data.jwt)
-                const returnTo = route.query.return_to?.toString()
-                meStore.refreshMe()
-                router.push(returnTo || '/')
+                router.push('/start')
+                // const response = await http.post<{ jwt: string }>('/session', formData, { _autoLoading: true }).catch(onError)
+                // localStorage.setItem('jwt', response.data.jwt)
+                // const returnTo = route.query.return_to?.toString()
+                // meStore.refreshMe()
+                // router.push(returnTo || '/')
             }
         }
         const onError = (error: any) => {
@@ -59,9 +60,6 @@ export const SignInPage = defineComponent({
         //     refValkidationCode.value.startCount()
         // }
         const onClickSendValitionCode = () => { refValkidationCode.value.startCount() }
-        const onSign_in = () => {
-            router.push('/start')
-        }
         return () => (
             <MainLayout>{{
                 title: () => '登录',
@@ -77,7 +75,7 @@ export const SignInPage = defineComponent({
                             onClick={onClickSendValitionCode}
                         ></FormItem>
                         <FormItem style={{ paddingTop: '48px' }}>
-                            <Button type="submit" onClick={onSign_in}>登录</Button>
+                            <Button type="submit" >登录</Button>
                         </FormItem>
                     </Form>
                 </>)
